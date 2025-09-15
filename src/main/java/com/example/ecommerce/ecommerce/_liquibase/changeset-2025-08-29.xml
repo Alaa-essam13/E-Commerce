@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="alaa.esam">
+        <createTable tableName="ec-product">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="category_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(150)">
+            </column>
+            <column name="price" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="alaa.esam">
+        <createTable tableName="ec-category">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="3" author="alaa.esam">
+        <createTable tableName="ec-cart">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="alaa.esam">
+        <createTable tableName="ec-cart_item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cart_id" type="bigint" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="alaa.esam">
+        <createTable tableName="ec-order">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="orderDate" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="totalAmount" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="alaa.esam">
+        <createTable tableName="ec-order_item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priceAtPurchase" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="7" author="alaa.esam">
+        <createTable tableName="ec-payment">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="bigint" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="paymentMethod" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="paymentDate" type="datetime" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8" author="alaa.esam">
+        <addForeignKeyConstraint baseTableName="ec-product"
+                                 baseColumnNames="category_id"
+                                 constraintName="fk_product_category"
+                                 referencedTableName="ec-category"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="9" author="alaa.esam">
+        <addForeignKeyConstraint baseTableName="ec-cart_item"
+                                 baseColumnNames="cart_id"
+                                 constraintName="fk_cart_item_cart"
+                                 referencedTableName="ec-cart"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="10" author="alaa.esam">
+        <addForeignKeyConstraint baseTableName="ec-cart_item"
+                                 baseColumnNames="product_id"
+                                 constraintName="fk_cart_item_product"
+                                 referencedTableName="ec-product"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="11" author="alaa.esam">
+        <addForeignKeyConstraint baseTableName="ec-order"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_order_user"
+                                 referencedTableName="ec-user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="12" author="alaa.esam">
+        <addForeignKeyConstraint baseTableName="ec-order_item"
+                                 baseColumnNames="order_id"
+                                 constraintName="fk_order_item_order"
+                                 referencedTableName="ec-order"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="13" author="alaa.esam">
+        <addForeignKeyConstraint baseTableName="ec-payment"
+                                 baseColumnNames="order_id"
+                                 constraintName="fk_payment_order"
+                                 referencedTableName="ec-order"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
