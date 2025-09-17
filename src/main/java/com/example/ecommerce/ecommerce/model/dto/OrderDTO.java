@@ -20,5 +20,5 @@ public class OrderDTO {
     private Double totalAmount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Long user_id;
+    private Long userId;
 }

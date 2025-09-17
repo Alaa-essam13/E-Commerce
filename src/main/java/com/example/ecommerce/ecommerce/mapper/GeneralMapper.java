@@ -43,4 +43,9 @@ public interface GeneralMapper {
     @Mapping(target = "orderItems", source = "orderItems")
     OrderVTO toOrderVTO(Order order, List<OrderItem> orderItems);
 
+
+    OrderItem toOrderItem(OrderItemDTO orderItemDTO,Product product);
+
+    OrderItem toOrderItem(OrderItemUpdateRequestDTO orderItemUpdateRequestDTO);
+
 }

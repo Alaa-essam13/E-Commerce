@@ -5,13 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItemVTO {
-    private Long id;
-    private String name;
-    private int quantity;
-    private Double price;
+public class OrderItemsVTO {
+    private Integer count;
+    private List<OrderItemVTO> items;
 }

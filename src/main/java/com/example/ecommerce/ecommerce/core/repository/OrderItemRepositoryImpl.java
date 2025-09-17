@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -20,13 +21,14 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
         orderItemJPARepository.save(orderItem);
     }
 
-    @Override
-    public OrderItem getOrderItem(Long id) {
-        return orderItemJPARepository.getOrderItemById(id);
-    }
 
     @Override
     public List<OrderItem> findAllItemsOfOrder(Long id) {
         return orderItemJPARepository.findAllByOrderId(id);
+    }
+
+    @Override
+    public Optional<OrderItem> findOrderItemById(Long id) {
+        return orderItemJPARepository.findById(id);
     }
 }

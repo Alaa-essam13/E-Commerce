@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface OrderItemJPARepository extends JpaRepository<OrderItem, Long> {
-    OrderItem getOrderItemById(Long id);
 
     @Query("SELECT oi FROM OrderItem oi where oi.order.id = :id")
     List<OrderItem> findAllByOrderId(@Param("id") Long id);
