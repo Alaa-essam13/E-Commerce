@@ -11,3 +11,4 @@
     <include file="../../java/com/example/ecommerce/ecommerce/_liquibase/changeset-2025-09-01.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
+

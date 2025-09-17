@@ -28,12 +28,12 @@ public class OrderItem {
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "product_id", insertable = false)
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @OneToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "order_id", insertable = false)
+    @JoinColumn(name = "order_id")
     private Order order;
 }

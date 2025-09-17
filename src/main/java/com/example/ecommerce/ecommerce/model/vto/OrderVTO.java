@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderVTO {
     private Long id;
-    private List<OrderItemVTO> items;
+    private List<OrderItemVTO> orderItems;
     private Double total;
     private String status;
 }

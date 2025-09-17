@@ -23,7 +23,7 @@ public interface ProductController {
     ResponseEntity<ProductVTO> getProductById(@PathVariable("id") Long id);
 
     @PutMapping(produces = {"application/json"})
-    ResponseEntity<Void> updateProduct(@RequestBody ProductUpdateRequestDTO productUpdateRequestDTO);
+    ResponseEntity<Void> updateProduct(@Valid @RequestBody ProductUpdateRequestDTO productUpdateRequestDTO);
 
     @DeleteMapping(path = "/{id}",produces = {"application/json"})
     ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id);
