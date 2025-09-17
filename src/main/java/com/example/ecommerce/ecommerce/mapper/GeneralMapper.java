@@ -1,21 +1,12 @@
 package com.example.ecommerce.ecommerce.mapper;
 
 
-import com.example.ecommerce.ecommerce.model.dto.CategoryDTO;
-import com.example.ecommerce.ecommerce.model.dto.ProductCreateRequestDTO;
-import com.example.ecommerce.ecommerce.model.dto.ProductUpdateRequestDTO;
-import com.example.ecommerce.ecommerce.model.dto.RegisterRequestDTO;
-import com.example.ecommerce.ecommerce.model.entity.Category;
-import com.example.ecommerce.ecommerce.model.entity.Product;
-import com.example.ecommerce.ecommerce.model.entity.User;
-import com.example.ecommerce.ecommerce.model.vto.CategoriesVTO;
-import com.example.ecommerce.ecommerce.model.vto.CategoryVTO;
-import com.example.ecommerce.ecommerce.model.vto.ProductVTO;
-import com.example.ecommerce.ecommerce.model.vto.UserVto;
+import com.example.ecommerce.ecommerce.model.dto.*;
+import com.example.ecommerce.ecommerce.model.entity.*;
+import com.example.ecommerce.ecommerce.model.vto.*;
 import org.mapstruct.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(
         componentModel = "spring",
@@ -38,11 +29,18 @@ public interface GeneralMapper {
 
     CategoryVTO toCategoryVTO(Category category);
 
-    List<CategoryVTO> toCategoryVTOList(List<Category> categories);
+    List<CategoryVTO> toCategoryVTOList(List<Category> category);
 
 
-    default CategoriesVTO toCategoriesVTO(List<Category> categories) {
-        return new CategoriesVTO(toCategoryVTOList(categories));
-    }
+    @Mapping(source = "categories", target = "categories")
+    CategoriesVTO toCategoriesVTO(Integer count,List<Category> categories);
+
+
+    Order toOrder(OrderDTO orderDTO);
+
+    List<OrderItemVTO> toOrderItemVTO(List<OrderItem> orderItem);
+
+    @Mapping(target = "orderItems", source = "orderItems")
+    OrderVTO toOrderVTO(Order order, List<OrderItem> orderItems);
 
 }

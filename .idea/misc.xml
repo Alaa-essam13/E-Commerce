@@ -5,6 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/ecommerce/ecommerce/_liquibase/pom.xml" />
       </list>
     </option>
   </component>

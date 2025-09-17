@@ -48,7 +48,7 @@ public class Product {
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "category_id",insertable = false)
+    @JoinColumn(name = "category_id")
     private Category category;
 
 }

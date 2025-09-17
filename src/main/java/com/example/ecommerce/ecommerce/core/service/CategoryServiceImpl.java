@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final GeneralMapper mapper;
     @Override
     public CategoriesVTO getAllCategories() {
-        return mapper.toCategoriesVTO(categoryRepository.getCategories());
+        return mapper.toCategoriesVTO(0,categoryRepository.getCategories());
     }
 
     @Override

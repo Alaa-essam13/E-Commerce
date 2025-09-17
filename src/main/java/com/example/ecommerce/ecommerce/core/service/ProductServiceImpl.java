@@ -35,8 +35,9 @@ public class ProductServiceImpl implements ProductService {
         Product product = mapper.toProduct(productCreateRequestDTO);
         product.setCreatedAt(LocalDateTime.now());
         product.setUpdatedAt(LocalDateTime.now());
-        Category c=categoryRepository.getCategoryById(productCreateRequestDTO.getCategoryId()).orElseThrow();
+        Category c=categoryRepository.getCategoryById(productCreateRequestDTO.getCategory()).orElseThrow();
         product.setCategory(c);
+        System.out.println(product.getCategory().getName());
         productRepository.addProduct(product);
     }
 
