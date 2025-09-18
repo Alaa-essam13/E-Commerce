@@ -17,7 +17,7 @@ tags:
   - name: Category
 
 paths:
-  /auth/register:
+  /register:
     post:
       tags: [Auth]
       summary: Register a new user
@@ -31,7 +31,7 @@ paths:
         '201':
           description: created
 
-  /auth/login:
+  /login:
     post:
       tags: [Auth]
       summary: Login
@@ -296,12 +296,7 @@ components:
     PublicUserVTO:
       type: object
       properties:
-        id: { type: integer }
-        email: { type: string }
-        fullName: { type: string }
-        roles:
-          type: array
-          items: { type: string }
+        token: { type: string }
 
     ProductCreateRequestDTO:
       type: object

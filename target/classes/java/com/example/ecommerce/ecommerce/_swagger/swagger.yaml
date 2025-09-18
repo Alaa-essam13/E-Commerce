@@ -296,12 +296,7 @@ components:
     PublicUserVTO:
       type: object
       properties:
-        id: { type: integer }
-        email: { type: string }
-        fullName: { type: string }
-        roles:
-          type: array
-          items: { type: string }
+        token: { type: string }
 
     ProductCreateRequestDTO:
       type: object
