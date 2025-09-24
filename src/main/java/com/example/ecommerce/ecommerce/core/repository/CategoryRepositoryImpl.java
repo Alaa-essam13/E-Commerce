@@ -30,4 +30,9 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     public List<Category> getCategories() {
         return categoryJPARepository.findAll();
     }
+
+    @Override
+    public void deletebyId(Category category) {
+        categoryJPARepository.delete(category);
+    }
 }

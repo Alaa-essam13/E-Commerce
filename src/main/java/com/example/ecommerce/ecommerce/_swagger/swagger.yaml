@@ -8,18 +8,19 @@ info:
 servers:
   - url: http://localhost:8080/api/v1
 tags:
-  - name: Auth
+  - name: User
   - name: Products
   - name: Cart
   - name: Checkout
   - name: Orders
   - name: Shipping
   - name: Category
+  - name: OrderItem
 
 paths:
   /register:
     post:
-      tags: [Auth]
+      tags: [User]
       summary: Register a new user
       requestBody:
         required: true
@@ -33,7 +34,7 @@ paths:
 
   /login:
     post:
-      tags: [Auth]
+      tags: [User]
       summary: Login
       requestBody:
         required: true
@@ -48,6 +49,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PublicUserVTO'
+
+  /user/{UID}:
+    get:
+      tags: [ User ]
+      summary: Get User by ID
+      parameters:
+        - $ref: '#/components/parameters/UID'
+      responses:
+        '200':
+          description: User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserVTO'
+
 
   /products:
     get:
@@ -72,10 +88,6 @@ paths:
       responses:
         '201':
           description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductVTO'
 
   /products/{id}:
     get:
@@ -104,10 +116,7 @@ paths:
       responses:
         '200':
           description: Updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductVTO'
+
     delete:
       tags: [Products]
       summary: Delete product
@@ -213,6 +222,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedOrderResponseVTO'
+    post:
+      tags: [ Orders ]
+      summary: add orders
+      responses:
+        '201':
+          description: Created
 
   /orders/{id}:
     get:
@@ -227,6 +242,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrderVTO'
+
+  /orderItem/{id}:
+    get:
+      tags:
+        - OrderItem
+      summary: get order item
+      parameters:
+        - $ref: '#/components/parameters/OrderIdPath'
+      responses:
+        '200':
+          description: Order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderItemVTO'
+
 
   /shipping/cost:
     post:
@@ -276,6 +307,19 @@ components:
       in: path
       required: true
       schema: { type: integer, format: int64 }
+
+    UID:
+      name: id
+      in: path
+      required: true
+      schema: { type: integer, format: int64 }
+
+    OrderIdPath:
+      name: id
+      in: path
+      required: true
+      schema: { type: integer ,format: int64}
+
 
   schemas:
     RegisterRequestDTO:
@@ -365,7 +409,7 @@ components:
     OrderVTO:
       type: object
       properties:
-        id: { type: integer }
+        id: { type: integer ,format: int64}
         items:
           type: array
           items: { $ref: '#/components/schemas/OrderItemVTO' }
@@ -438,3 +482,29 @@ components:
         updatedAt:
           type: string
           format: date-time
+
+    OrderItemsVTO:
+      type: object
+      properties:
+        count:
+          type: integer
+        items:
+          type: object
+          items:
+            $ref: '#/components/schemas/OrderItemVTO'
+
+    UserVTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        mobileNumber:
+          type: string

@@ -34,4 +34,10 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryVTO getCategoryById(Integer id) {
         return mapper.toCategoryVTO(categoryRepository.getCategoryById(id).orElseThrow());
     }
+
+    @Override
+    public void deleteCategory(Integer id) {
+        Category category=categoryRepository.getCategoryById(id).orElseThrow();
+        categoryRepository.deletebyId(category);
+    }
 }

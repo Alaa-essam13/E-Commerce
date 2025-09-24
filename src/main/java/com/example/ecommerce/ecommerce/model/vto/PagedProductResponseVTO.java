@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 public class PagedProductResponseVTO {
     private List<ProductVTO> content;
-    private int totalElements;
+    private Integer totalElements;
 }

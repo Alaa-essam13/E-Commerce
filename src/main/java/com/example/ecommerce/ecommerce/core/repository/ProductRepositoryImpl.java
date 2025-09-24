@@ -17,7 +17,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> findAllProducts() {
-        return List.of();
+        return productJPARepository.findAll();
     }
 
     @Override

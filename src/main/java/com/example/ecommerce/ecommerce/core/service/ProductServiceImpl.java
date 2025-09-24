@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PagedProductResponseVTO getProducts() {
-        return null;
+        return mapper.toPagedProductResponseVTO(productRepository.findAllProducts(),10);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = mapper.toProduct(productCreateRequestDTO);
         product.setCreatedAt(LocalDateTime.now());
         product.setUpdatedAt(LocalDateTime.now());
-        Category c=categoryRepository.getCategoryById(productCreateRequestDTO.getCategory()).orElseThrow();
+        Category c=categoryRepository.getCategoryById(productCreateRequestDTO.getCategoryId()).orElseThrow();
         product.setCategory(c);
         System.out.println(product.getCategory().getName());
         productRepository.addProduct(product);
@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(ProductUpdateRequestDTO productUpdateRequestDTO) {
+    public void updateProduct(Long id,ProductUpdateRequestDTO productUpdateRequestDTO) {
         productRepository.findByProductId(productUpdateRequestDTO.getId()).orElseThrow();
         productRepository.updateProduct(mapper.toProduct(productUpdateRequestDTO));
     }

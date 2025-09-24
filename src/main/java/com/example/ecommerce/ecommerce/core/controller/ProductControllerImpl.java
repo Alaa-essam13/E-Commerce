@@ -38,8 +38,8 @@ public class ProductControllerImpl implements ProductController {
     }
 
     @Override
-    public ResponseEntity<Void> updateProduct(@Valid @RequestBody ProductUpdateRequestDTO productUpdateRequestDTO) {
-        productService.updateProduct(productUpdateRequestDTO);
+    public ResponseEntity<Void> updateProduct(Long id,@Valid @RequestBody ProductUpdateRequestDTO productUpdateRequestDTO) {
+        productService.updateProduct(id,productUpdateRequestDTO);
         return ResponseEntity.status(ACCEPTED).build();
     }
 

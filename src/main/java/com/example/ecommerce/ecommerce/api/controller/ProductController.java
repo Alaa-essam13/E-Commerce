@@ -22,8 +22,8 @@ public interface ProductController {
     @GetMapping(path = "/{id}",produces = {"application/json"})
     ResponseEntity<ProductVTO> getProductById(@PathVariable("id") Long id);
 
-    @PutMapping(produces = {"application/json"})
-    ResponseEntity<Void> updateProduct(@Valid @RequestBody ProductUpdateRequestDTO productUpdateRequestDTO);
+    @PutMapping(path = "/{id}",produces = {"application/json"})
+    ResponseEntity<Void> updateProduct(@PathVariable("id") Long id,@Valid @RequestBody ProductUpdateRequestDTO productUpdateRequestDTO);
 
     @DeleteMapping(path = "/{id}",produces = {"application/json"})
     ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id);
