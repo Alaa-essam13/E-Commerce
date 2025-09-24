@@ -13,4 +13,6 @@ public interface CategoryRepository{
     Optional<Category> getCategoryById(Integer id);
 
     List<Category> getCategories();
+
+    void deletebyId(Category category);
 }

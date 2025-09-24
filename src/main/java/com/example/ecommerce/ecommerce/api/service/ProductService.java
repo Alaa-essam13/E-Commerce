@@ -13,7 +13,7 @@ public interface ProductService {
 
     ProductVTO getProductById(Long id);
 
-    void updateProduct(ProductUpdateRequestDTO productUpdateRequestDTO);
+    void updateProduct(Long id,ProductUpdateRequestDTO productUpdateRequestDTO);
 
     void deleteProduct( Long id);
 }

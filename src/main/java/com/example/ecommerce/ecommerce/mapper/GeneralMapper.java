@@ -23,6 +23,8 @@ public interface GeneralMapper {
 
     ProductVTO toProductVTO(Product product);
 
+    PagedProductResponseVTO toPagedProductResponseVTO(List<Product> content,Integer totalElements);
+
     Product toProduct(ProductUpdateRequestDTO productUpdateRequestDTO);
 
     Category toCategory(CategoryDTO categoryDTO);
@@ -44,6 +46,7 @@ public interface GeneralMapper {
     OrderVTO toOrderVTO(Order order, List<OrderItem> orderItems);
 
 
+    @Mapping(source = "orderItemDTO.quantity",target = "quantity")
     OrderItem toOrderItem(OrderItemDTO orderItemDTO,Product product);
 
     OrderItem toOrderItem(OrderItemUpdateRequestDTO orderItemUpdateRequestDTO);

@@ -13,6 +13,6 @@ public class ProductCreateRequestDTO {
     private String name;
     private String description;
     private Double price;
-    private Integer category;
+    private Integer categoryId;
     private Integer quantity;
 }

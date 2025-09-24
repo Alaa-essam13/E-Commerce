@@ -9,4 +9,6 @@ public interface CategoryService {
     CategoriesVTO getAllCategories();
     void addCategory(CategoryDTO  categoryDTO);
     CategoryVTO getCategoryById(Integer id);
+
+    void deleteCategory(Integer id);
 }

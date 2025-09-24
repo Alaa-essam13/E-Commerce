@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.HttpStatus.ACCEPTED;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/category")
@@ -24,7 +25,7 @@ public class CategoryControllerImpl implements CategoryController {
     @Override
     public ResponseEntity<Void> addCategory(@Valid @RequestBody CategoryDTO category) {
          categoryService.addCategory(category);
-         return ResponseEntity.status(ACCEPTED).build();
+         return ResponseEntity.status(CREATED).build();
     }
 
     @Override
@@ -35,6 +36,12 @@ public class CategoryControllerImpl implements CategoryController {
     @Override
     public ResponseEntity<CategoryVTO> getCategoryById(Integer id) {
         return ResponseEntity.ok(categoryService.getCategoryById(id));
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteCtegory(Integer id) {
+        categoryService.deleteCategory(id);
+        return ResponseEntity.status(ACCEPTED).build();
     }
 
 }

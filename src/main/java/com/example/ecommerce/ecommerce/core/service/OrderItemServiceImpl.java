@@ -3,7 +3,6 @@ package com.example.ecommerce.ecommerce.core.service;
 import com.example.ecommerce.ecommerce.api.repository.OrderItemRepository;
 import com.example.ecommerce.ecommerce.api.repository.ProductRepository;
 import com.example.ecommerce.ecommerce.api.service.OrderItemService;
-import com.example.ecommerce.ecommerce.api.service.ProductService;
 import com.example.ecommerce.ecommerce.mapper.GeneralMapper;
 import com.example.ecommerce.ecommerce.model.dto.OrderItemDTO;
 import com.example.ecommerce.ecommerce.model.dto.OrderItemUpdateRequestDTO;
