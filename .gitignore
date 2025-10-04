@@ -65,6 +65,7 @@ Thumbs.db
 *.mov
 *.wmv
 *.tar.gz
+*.class
 
 # Git
 *.my-cred
