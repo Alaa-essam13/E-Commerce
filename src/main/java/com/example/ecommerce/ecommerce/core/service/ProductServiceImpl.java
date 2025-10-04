@@ -32,12 +32,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void createProduct(ProductCreateRequestDTO productCreateRequestDTO) {
-        Product product = mapper.toProduct(productCreateRequestDTO);
+        Category c=categoryRepository.getCategoryById(productCreateRequestDTO.getCategoryId()).orElseThrow();
+        Product product = mapper.toProduct(productCreateRequestDTO,c);
         product.setCreatedAt(LocalDateTime.now());
         product.setUpdatedAt(LocalDateTime.now());
-        Category c=categoryRepository.getCategoryById(productCreateRequestDTO.getCategoryId()).orElseThrow();
         product.setCategory(c);
-        System.out.println(product.getCategory().getName());
         productRepository.addProduct(product);
     }
 

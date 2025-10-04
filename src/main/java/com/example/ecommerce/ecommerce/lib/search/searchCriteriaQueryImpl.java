@@ -10,9 +10,9 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 @AllArgsConstructor
-public class searchCriteriaQueryImpl<T, ID> implements searchCriteriaQuery<T, ID> {
+public abstract class searchCriteriaQueryImpl<T, ID> implements searchCriteriaQuery<T, ID> {
 
     private final EntityManager entityManager;
     private final Class<T> entityClass;

@@ -3,11 +3,13 @@ package com.example.ecommerce.ecommerce.api.repository;
 import com.example.ecommerce.ecommerce.model.entity.Cart;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CartRepoitory {
 
-    Cart findCart();
+    Optional<Cart> findCart(Long id);
 
-    void clearCart();
+    void addCart(Cart cart);
 
 }

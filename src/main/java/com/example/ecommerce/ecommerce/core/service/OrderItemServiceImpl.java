@@ -27,7 +27,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Override
     public void addOrderItem(OrderItemDTO orderItemDTO) {
         Product product=productRepository.findByProductId(orderItemDTO.getProduct_id()).orElseThrow();
-        OrderItem orderItem=mapper.toOrderItem(orderItemDTO,product);
+        OrderItem orderItem=OrderItem.builder().product(product).quantity(orderItemDTO.getQuantity()).priceAtPurchase(orderItemDTO.getPriceAtPurchase()).build();
         orderItemRepository.addOrderItem(orderItem);
     }
 
