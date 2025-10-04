@@ -25,7 +25,13 @@ public class CartItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JoinColumn(name = "product_id",insertable = false)
+    private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "cart_id",insertable = false)
-    private Cart cartId;
+    private Cart cart;
 
 }

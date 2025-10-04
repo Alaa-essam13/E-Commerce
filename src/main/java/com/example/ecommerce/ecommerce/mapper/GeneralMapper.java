@@ -19,7 +19,9 @@ public interface GeneralMapper {
 
     UserVto toUserVto(User user);
 
-    Product toProduct(ProductCreateRequestDTO product);
+    @Mapping(target = "category",source = "category")
+    @Mapping(target = "name",source = "product.name")
+    Product toProduct(ProductCreateRequestDTO product,Category category);
 
     ProductVTO toProductVTO(Product product);
 
@@ -46,9 +48,19 @@ public interface GeneralMapper {
     OrderVTO toOrderVTO(Order order, List<OrderItem> orderItems);
 
 
-    @Mapping(source = "orderItemDTO.quantity",target = "quantity")
-    OrderItem toOrderItem(OrderItemDTO orderItemDTO,Product product);
 
     OrderItem toOrderItem(OrderItemUpdateRequestDTO orderItemUpdateRequestDTO);
+
+
+    @Mapping(target = "productId",source = "cartItem.product.id")
+    @Mapping(target = "name",source = "cartItem.product.name")
+    @Mapping(target = "price",source = "cartItem.product.price")
+    @Mapping(target = "quantity",source = "cartItem.quantity")
+    @Mapping(target = "totalPrice", expression = "java(cartItem.getProduct().getPrice() * cartItem.getQuantity())")
+    CartItemVTO toCartItemVTO(CartItem cartItem);
+
+    List<CartItemVTO> toCartItemsVTO(List<CartItem> cartItems);
+
+
 
 }
