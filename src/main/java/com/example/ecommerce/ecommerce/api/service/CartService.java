@@ -10,9 +10,5 @@ public interface CartService {
 
     void clearCart(Long id);
 
-    void addItemToCart(CartItemRequestDTO cartItemRequestDTO);
-
-    void updateItemQuantity(CartItemUpdateRequestDTO cartItemUpdateRequestDTO);
-
 
 }

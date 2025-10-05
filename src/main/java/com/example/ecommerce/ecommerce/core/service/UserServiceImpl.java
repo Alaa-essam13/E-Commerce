@@ -1,10 +1,12 @@
 package com.example.ecommerce.ecommerce.core.service;
 
+import com.example.ecommerce.ecommerce.api.repository.CartRepoitory;
 import com.example.ecommerce.ecommerce.api.repository.UserRepository;
 import com.example.ecommerce.ecommerce.api.service.UserService;
 import com.example.ecommerce.ecommerce.mapper.GeneralMapper;
 import com.example.ecommerce.ecommerce.model.dto.LoginRequestDTO;
 import com.example.ecommerce.ecommerce.model.dto.RegisterRequestDTO;
+import com.example.ecommerce.ecommerce.model.entity.Cart;
 import com.example.ecommerce.ecommerce.model.entity.User;
 import com.example.ecommerce.ecommerce.model.vto.LoginUserVTO;
 import com.example.ecommerce.ecommerce.model.vto.UserVto;
@@ -26,6 +28,7 @@ public class UserServiceImpl implements UserService {
     private final GeneralMapper mapper;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final CartRepoitory cartRepoitory;
     @Override
     public LoginUserVTO login(LoginRequestDTO loginRequestDTO) {
         System.out.println(loginRequestDTO.getEmail()+"  "+loginRequestDTO.getPassword());
@@ -41,8 +44,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(RegisterRequestDTO registerRequestDTO) {
-        System.out.println(registerRequestDTO.getPassword()+"  "+registerRequestDTO.getEmail());
-
         if (registerRequestDTO.getEmail().isBlank() || registerRequestDTO.getPassword().isBlank()) {
             throw new RuntimeException();
         }else{
@@ -54,6 +55,7 @@ public class UserServiceImpl implements UserService {
                 User usr=mapper.toUser(registerRequestDTO);
                 usr.setCreatedOn(LocalDateTime.now());
                 usr.setStatusId(1);
+                cartRepoitory.addCart(Cart.builder().user(usr).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build());
                 userRepository.addUser(usr);
             }
         }
