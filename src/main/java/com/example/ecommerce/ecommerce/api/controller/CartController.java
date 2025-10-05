@@ -12,17 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public interface CartController {
 
-    @GetMapping(produces = {"application/json"})
-    ResponseEntity<CartVTO> getCart();
+    @GetMapping(path = "/{id}",produces = {"application/json"})
+    ResponseEntity<CartVTO> getCart(@PathVariable("id") Long id);
 
-    @DeleteMapping(produces = {"application/json"})
-    ResponseEntity<Void> clearCart();
-
-    @PostMapping(path = "/items",produces = {"application/json"})
-    ResponseEntity<CartVTO> addItemToCart(@RequestBody CartItemRequestDTO cartItemRequestDTO);
-
-    @PatchMapping(path = "/items",produces = {"application/json"})
-    ResponseEntity<CartVTO> updateItemQuantity(@RequestBody CartItemUpdateRequestDTO cartItemUpdateRequestDTO);
+    @DeleteMapping(path = "/{id}",produces = {"application/json"})
+    ResponseEntity<Void> clearCart(@PathVariable("id") Long id);
 
 
 }

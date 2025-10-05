@@ -42,16 +42,5 @@ public class CartServiceImpl implements CartService {
         cartItemRepository.removeCartItems(id);
     }
 
-    @Override
-    public void addItemToCart(CartItemRequestDTO cartItemRequestDTO) {
-        Product product = productRepository.findByProductId(cartItemRequestDTO.getProductId()).orElseThrow();
-        CartItem cartItem = CartItem.builder().product(product).quantity(cartItemRequestDTO.getQuantity()).build();
-        cartItemRepository.addCartItem(cartItem);
-    }
 
-    @Override
-    public void updateItemQuantity(CartItemUpdateRequestDTO cartItemUpdateRequestDTO) {
-        CartItem cartItem = cartItemRepository.getById(cartItemUpdateRequestDTO.getCartItemId()).orElseThrow();
-        cartItem.setQuantity(cartItemUpdateRequestDTO.getQuantity());
-    }
 }
