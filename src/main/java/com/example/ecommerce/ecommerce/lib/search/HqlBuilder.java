@@ -14,6 +14,7 @@ public class HqlBuilder<T> {
     private int offset = 0;
     private int limit = 0;
 
+    private Direction orderDirection = null;
     private boolean selectCount = false;
     private String groupBy = null;
 
@@ -64,6 +65,13 @@ public class HqlBuilder<T> {
         return this;
     }
 
+    public HqlBuilder<T> direction(Direction direction) {
+        if (direction != null) {
+            this.orderDirection = direction;
+        }
+        return this;
+    }
+
     // === PAGINATION ===
     public HqlBuilder<T> paginate(int offset, int limit) {
         this.offset = offset;
@@ -101,6 +109,12 @@ public class HqlBuilder<T> {
         if (!orderParts.isEmpty())
             hql.append(" ORDER BY ").append(String.join(", ", orderParts));
 
+        if(orderDirection != null) hql.append(" ").append(orderDirection);
+
         return hql.toString();
+    }
+
+    public enum Direction {
+        ASC, DESC
     }
 }
