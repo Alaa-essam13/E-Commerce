@@ -31,7 +31,6 @@ public class UserServiceImpl implements UserService {
     private final CartRepoitory cartRepoitory;
     @Override
     public LoginUserVTO login(LoginRequestDTO loginRequestDTO) {
-        System.out.println(loginRequestDTO.getEmail()+"  "+loginRequestDTO.getPassword());
         User user = userRepository.findByEmail(loginRequestDTO.getEmail()).orElseThrow(()->new UsernameNotFoundException("user not founded"));
         boolean isPasswordMatches=passwordEncoder.matches(loginRequestDTO.getPassword(), user.getPassword());
         if(!isPasswordMatches) {
