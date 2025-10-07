@@ -4,6 +4,7 @@ import com.example.ecommerce.ecommerce.api.controller.CategoryController;
 import com.example.ecommerce.ecommerce.api.service.CategoryService;
 import com.example.ecommerce.ecommerce.model.dto.CategoryDTO;
 import com.example.ecommerce.ecommerce.model.entity.Category;
+import com.example.ecommerce.ecommerce.model.enums.SortDirection;
 import com.example.ecommerce.ecommerce.model.vto.CategoriesVTO;
 import com.example.ecommerce.ecommerce.model.vto.CategoryVTO;
 import jakarta.validation.Valid;
@@ -29,8 +30,8 @@ public class CategoryControllerImpl implements CategoryController {
     }
 
     @Override
-    public ResponseEntity<CategoriesVTO> getAllCategories() {
-        return ResponseEntity.ok(categoryService.getAllCategories());
+    public ResponseEntity<CategoriesVTO> getAllCategories(Integer offset, Integer limit, String searchTxt, SortDirection sortDirection) {
+        return ResponseEntity.ok(categoryService.getAllCategories(offset,limit,searchTxt,sortDirection));
     }
 
     @Override

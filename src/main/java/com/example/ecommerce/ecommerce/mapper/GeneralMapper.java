@@ -25,7 +25,7 @@ public interface GeneralMapper {
 
     ProductVTO toProductVTO(Product product);
 
-    PagedProductResponseVTO toPagedProductResponseVTO(List<Product> content,Integer totalElements);
+    PagedProductResponseVTO toPagedProductResponseVTO(List<Product> content,Long totalElements);
 
     Product toProduct(ProductUpdateRequestDTO productUpdateRequestDTO);
 

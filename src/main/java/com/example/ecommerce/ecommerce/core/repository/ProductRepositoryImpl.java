@@ -2,6 +2,8 @@ package com.example.ecommerce.ecommerce.core.repository;
 
 import com.example.ecommerce.ecommerce.api.repository.ProductRepository;
 import com.example.ecommerce.ecommerce.core.repository.jpa.ProductJPARepository;
+import com.example.ecommerce.ecommerce.core.repository.query.ProductQueryBuilderRepositoryImpl;
+import com.example.ecommerce.ecommerce.model.dto.ProductFilterDTO;
 import com.example.ecommerce.ecommerce.model.entity.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,9 +16,13 @@ import java.util.Optional;
 public class ProductRepositoryImpl implements ProductRepository {
 
     private final ProductJPARepository productJPARepository;
+    private final ProductQueryBuilderRepositoryImpl productQueryBuilder;
+
+
 
     @Override
-    public List<Product> findAllProducts() {
+    public List<Product> findAllProducts(ProductFilterDTO productFilterDTO, Integer offset, Integer limit) {
+        productQueryBuilder.getList(productFilterDTO,offset,limit);
         return productJPARepository.findAll();
     }
 
@@ -38,5 +44,10 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public void deleteProduct(Long productId) {
         productJPARepository.deleteById(productId);
+    }
+
+    @Override
+    public Long getCount(ProductFilterDTO productFilterDTO) {
+        return productQueryBuilder.getCount(productFilterDTO);
     }
 }

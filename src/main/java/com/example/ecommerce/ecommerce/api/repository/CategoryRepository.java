@@ -1,5 +1,6 @@
 package com.example.ecommerce.ecommerce.api.repository;
 
+import com.example.ecommerce.ecommerce.model.dto.CategoryFilterDTO;
 import com.example.ecommerce.ecommerce.model.entity.Category;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ public interface CategoryRepository{
 
     Optional<Category> getCategoryById(Integer id);
 
-    List<Category> getCategories();
+    List<Category> getCategories(CategoryFilterDTO categoryFilterDTO, Integer offset, Integer limit);
 
     void deletebyId(Category category);
 }
