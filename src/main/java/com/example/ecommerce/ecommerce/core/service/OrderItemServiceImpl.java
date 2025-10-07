@@ -12,6 +12,8 @@ import com.example.ecommerce.ecommerce.model.vto.OrderItemsVTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class OrderItemServiceImpl implements OrderItemService {
@@ -21,7 +23,8 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItemsVTO getOrderItemsByOrderId(Long id) {
-        return null;
+        List<OrderItem> orderItems= orderItemRepository.findAllItemsOfOrder(id);
+        return OrderItemsVTO.builder().items(mapper.toOrderItemVTO(orderItems)).count(orderItems.size()).build();
     }
 
     @Override
