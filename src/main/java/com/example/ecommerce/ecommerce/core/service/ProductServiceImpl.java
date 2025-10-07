@@ -5,9 +5,12 @@ import com.example.ecommerce.ecommerce.api.repository.ProductRepository;
 import com.example.ecommerce.ecommerce.api.service.ProductService;
 import com.example.ecommerce.ecommerce.mapper.GeneralMapper;
 import com.example.ecommerce.ecommerce.model.dto.ProductCreateRequestDTO;
+import com.example.ecommerce.ecommerce.model.dto.ProductFilterDTO;
 import com.example.ecommerce.ecommerce.model.dto.ProductUpdateRequestDTO;
 import com.example.ecommerce.ecommerce.model.entity.Category;
 import com.example.ecommerce.ecommerce.model.entity.Product;
+import com.example.ecommerce.ecommerce.model.enums.ProductSortBy;
+import com.example.ecommerce.ecommerce.model.enums.SortDirection;
 import com.example.ecommerce.ecommerce.model.vto.PagedProductResponseVTO;
 import com.example.ecommerce.ecommerce.model.vto.ProductVTO;
 import jakarta.transaction.Transactional;
@@ -15,6 +18,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -24,9 +28,19 @@ public class ProductServiceImpl implements ProductService {
     private final GeneralMapper mapper;
     private final CategoryRepository categoryRepository;
 
+
     @Override
-    public PagedProductResponseVTO getProducts() {
-        return mapper.toPagedProductResponseVTO(productRepository.findAllProducts(),10);
+    public PagedProductResponseVTO getProducts(Integer offset,Integer limit,String searchTxt, SortDirection direction, ProductSortBy sortedBy, Double minPrice, Double maxPrice, Integer categoryId) {
+        ProductFilterDTO productFilterDTO = ProductFilterDTO.builder()
+                .sortType(sortedBy)
+                .sortDirection(direction)
+                .minPrice(minPrice)
+                .maxPrice(maxPrice)
+                .searchTxt(searchTxt)
+                .category(categoryId)
+                .build();
+         List<Product> productList=productRepository.findAllProducts(productFilterDTO,offset,limit);
+         return mapper.toPagedProductResponseVTO(productList,productRepository.getCount(productFilterDTO));
     }
 
     @Override
