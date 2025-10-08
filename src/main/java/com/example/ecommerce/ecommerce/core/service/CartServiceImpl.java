@@ -3,20 +3,18 @@ package com.example.ecommerce.ecommerce.core.service;
 import com.example.ecommerce.ecommerce.api.repository.CartItemRepository;
 import com.example.ecommerce.ecommerce.api.repository.CartRepoitory;
 import com.example.ecommerce.ecommerce.api.repository.ProductRepository;
-import com.example.ecommerce.ecommerce.api.repository.UserRepository;
 import com.example.ecommerce.ecommerce.api.service.CartService;
+import com.example.ecommerce.ecommerce.lib.error.AppException;
 import com.example.ecommerce.ecommerce.mapper.GeneralMapper;
-import com.example.ecommerce.ecommerce.model.dto.CartItemRequestDTO;
-import com.example.ecommerce.ecommerce.model.dto.CartItemUpdateRequestDTO;
 import com.example.ecommerce.ecommerce.model.entity.Cart;
 import com.example.ecommerce.ecommerce.model.entity.CartItem;
-import com.example.ecommerce.ecommerce.model.entity.Product;
-import com.example.ecommerce.ecommerce.model.entity.User;
 import com.example.ecommerce.ecommerce.model.vto.CartVTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.example.ecommerce.ecommerce.lib.error.Error.CART_NOT_FOUND;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +25,7 @@ public class CartServiceImpl implements CartService {
     private final GeneralMapper mapper;
     @Override
     public CartVTO getCart(Long id) {
-        Cart cart = cartRepoitory.findCart(id).orElseThrow();
+        Cart cart = cartRepoitory.findCart(id).orElseThrow(()->new AppException(CART_NOT_FOUND));
         List<CartItem> cartItems = cartItemRepository.getCartItemsByCartId(cart.getId());
         double subtotal = cartItems.stream()
                 .mapToDouble(itm -> itm.getProduct().getPrice() * itm.getQuantity())
@@ -38,7 +36,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void clearCart(Long id) {
-        cartRepoitory.findCart(id).orElseThrow();
+        cartRepoitory.findCart(id).orElseThrow(()->new AppException(CART_NOT_FOUND));
         cartItemRepository.removeCartItems(id);
     }
 
