@@ -3,6 +3,7 @@ package com.example.ecommerce.ecommerce.core.service;
 import com.example.ecommerce.ecommerce.api.repository.OrderItemRepository;
 import com.example.ecommerce.ecommerce.api.repository.ProductRepository;
 import com.example.ecommerce.ecommerce.api.service.OrderItemService;
+import com.example.ecommerce.ecommerce.lib.error.AppException;
 import com.example.ecommerce.ecommerce.mapper.GeneralMapper;
 import com.example.ecommerce.ecommerce.model.dto.OrderItemDTO;
 import com.example.ecommerce.ecommerce.model.dto.OrderItemUpdateRequestDTO;
@@ -13,6 +14,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.example.ecommerce.ecommerce.lib.error.Error.ORDER_ITEM_NOT_FOUND;
+import static com.example.ecommerce.ecommerce.lib.error.Error.PRODUCT_NOT_FOUND;
 
 @Service
 @AllArgsConstructor
@@ -29,14 +33,14 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public void addOrderItem(OrderItemDTO orderItemDTO) {
-        Product product=productRepository.findByProductId(orderItemDTO.getProduct_id()).orElseThrow();
+        Product product=productRepository.findByProductId(orderItemDTO.getProduct_id()).orElseThrow(()->new AppException(PRODUCT_NOT_FOUND));
         OrderItem orderItem=OrderItem.builder().product(product).quantity(orderItemDTO.getQuantity()).priceAtPurchase(orderItemDTO.getPriceAtPurchase()).build();
         orderItemRepository.addOrderItem(orderItem);
     }
 
     @Override
     public void updateOrderItem(OrderItemUpdateRequestDTO orderItemDTO) {
-        orderItemRepository.findOrderItemById(orderItemDTO.getId()).orElseThrow();
+        orderItemRepository.findOrderItemById(orderItemDTO.getId()).orElseThrow(()->new AppException(ORDER_ITEM_NOT_FOUND));
         OrderItem orderItem = mapper.toOrderItem(orderItemDTO);
         orderItemRepository.addOrderItem(orderItem);
     }

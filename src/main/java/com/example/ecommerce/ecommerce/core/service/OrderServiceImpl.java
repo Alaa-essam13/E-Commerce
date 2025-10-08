@@ -3,6 +3,7 @@ package com.example.ecommerce.ecommerce.core.service;
 import com.example.ecommerce.ecommerce.api.repository.OrderItemRepository;
 import com.example.ecommerce.ecommerce.api.repository.OrderRepository;
 import com.example.ecommerce.ecommerce.api.service.OrderService;
+import com.example.ecommerce.ecommerce.lib.error.AppException;
 import com.example.ecommerce.ecommerce.mapper.GeneralMapper;
 import com.example.ecommerce.ecommerce.model.dto.OrderDTO;
 import com.example.ecommerce.ecommerce.model.entity.Order;
@@ -13,6 +14,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.example.ecommerce.ecommerce.lib.error.Error.ORDER_NOT_FOUND;
+
 
 @Service
 @AllArgsConstructor
@@ -28,14 +32,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderVTO getOrderById(Long id) {
-        Order order = orderRepository.findOrderById(id).orElseThrow();
+        Order order = orderRepository.findOrderById(id).orElseThrow(()->new AppException(ORDER_NOT_FOUND));
         List<OrderItem> orderItems = orderItemRepository.findAllItemsOfOrder(id);
         return mapper.toOrderVTO(order,orderItems);
     }
 
     @Override
     public void addOrder(OrderDTO orderDTO) {
-
         Order order = mapper.toOrder(orderDTO);
         orderRepository.addOrder(order);
     }

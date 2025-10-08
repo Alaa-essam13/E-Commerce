@@ -3,6 +3,7 @@ package com.example.ecommerce.ecommerce.core.service;
 import com.example.ecommerce.ecommerce.api.repository.CategoryRepository;
 import com.example.ecommerce.ecommerce.api.repository.ProductRepository;
 import com.example.ecommerce.ecommerce.api.service.ProductService;
+import com.example.ecommerce.ecommerce.lib.error.AppException;
 import com.example.ecommerce.ecommerce.mapper.GeneralMapper;
 import com.example.ecommerce.ecommerce.model.dto.ProductCreateRequestDTO;
 import com.example.ecommerce.ecommerce.model.dto.ProductFilterDTO;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.example.ecommerce.ecommerce.lib.error.Error.PRODUCT_NOT_FOUND;
 
 @Service
 @AllArgsConstructor
@@ -56,19 +59,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductVTO getProductById(Long id) {
-        Product p = productRepository.findByProductId(id).orElseThrow();
+        Product p = productRepository.findByProductId(id).orElseThrow(()->new AppException(PRODUCT_NOT_FOUND));
         return mapper.toProductVTO(p);
     }
 
     @Override
     public void updateProduct(Long id,ProductUpdateRequestDTO productUpdateRequestDTO) {
-        productRepository.findByProductId(productUpdateRequestDTO.getId()).orElseThrow();
+        productRepository.findByProductId(productUpdateRequestDTO.getId()).orElseThrow(()->new AppException(PRODUCT_NOT_FOUND));
         productRepository.updateProduct(mapper.toProduct(productUpdateRequestDTO));
     }
 
     @Override
     public void deleteProduct(Long id) {
-        Product p =productRepository.findByProductId(id).orElseThrow();
+        Product p =productRepository.findByProductId(id).orElseThrow(()->new AppException(PRODUCT_NOT_FOUND));
         productRepository.deleteProduct(p.getId());
     }
 }
