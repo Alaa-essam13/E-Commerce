@@ -5,10 +5,13 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+
     <include file="../../java/com/example/ecommerce/ecommerce/_liquibase/changeset-2025-08-28.xml" relativeToChangelogFile="true"/>
     <include file="../../java/com/example/ecommerce/ecommerce/_liquibase/changeset-2025-08-29.xml" relativeToChangelogFile="true"/>
     <include file="../../java/com/example/ecommerce/ecommerce/_liquibase/changeset-2025-08-31.xml" relativeToChangelogFile="true"/>
     <include file="../../java/com/example/ecommerce/ecommerce/_liquibase/changeset-2025-09-01.xml" relativeToChangelogFile="true"/>
+    <include file="../../java/com/example/ecommerce/ecommerce/_liquibase/changeset-2025-10-11.xml" relativeToChangelogFile="true"/>
+    <include file="../../java/com/example/ecommerce/ecommerce/_liquibase/changeset-2025-10-12.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>
-
