@@ -1,0 +1,40 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="alaa.essam">
+        <addForeignKeyConstraint baseTableName="ec-user-role"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk-user-role-user-id"
+                                 referencedTableName="ec-user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="2" author="alaa.essam">
+        <addForeignKeyConstraint baseTableName="ec-user-role"
+                                 baseColumnNames="role_id"
+                                 constraintName="fk-user-role-role-id"
+                                 referencedTableName="ec-role"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="3" author="alaa.essam">
+        <addForeignKeyConstraint baseTableName="ec-role-scope"
+                                 baseColumnNames="role_id"
+                                 constraintName="fk-role-scope-role-id"
+                                 referencedTableName="ec-role"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="4" author="alaa.essam">
+        <addForeignKeyConstraint baseTableName="ec-role-scope"
+                                 baseColumnNames="scope_id"
+                                 constraintName="fk-role-scope-scope-id"
+                                 referencedTableName="ec-scope"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    
+    
+</databaseChangeLog>
