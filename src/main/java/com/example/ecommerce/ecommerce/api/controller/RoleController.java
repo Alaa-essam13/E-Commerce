@@ -24,5 +24,4 @@ public interface RoleController {
     @DeleteMapping(path = "/{id}",produces = {"application/json"})
     ResponseEntity<Void> deleteRole(@PathVariable("id") Long id);
 
-
 }
