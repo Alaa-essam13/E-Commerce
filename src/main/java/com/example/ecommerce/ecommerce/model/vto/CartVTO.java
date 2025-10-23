@@ -14,5 +14,5 @@ import java.util.List;
 public class CartVTO {
     private List<CartItemVTO> items;
     private int totalItems;
-    private int subtotal;
+    private Double subtotal;
 }

@@ -6,13 +6,9 @@ import com.example.ecommerce.ecommerce.model.vto.CartVTO;
 
 public interface CartService {
 
-    CartVTO getCart();
+    CartVTO getCart(Long id);
 
-    void clearCart();
-
-    CartVTO addItemToCart(CartItemRequestDTO cartItemRequestDTO);
-
-    CartVTO updateItemQuantity(CartItemUpdateRequestDTO cartItemUpdateRequestDTO);
+    void clearCart(Long id);
 
 
 }

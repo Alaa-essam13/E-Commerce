@@ -2,9 +2,12 @@ package com.example.ecommerce.ecommerce.core.service;
 
 import com.example.ecommerce.ecommerce.api.repository.CategoryRepository;
 import com.example.ecommerce.ecommerce.api.service.CategoryService;
+import com.example.ecommerce.ecommerce.lib.error.AppException;
 import com.example.ecommerce.ecommerce.mapper.GeneralMapper;
 import com.example.ecommerce.ecommerce.model.dto.CategoryDTO;
+import com.example.ecommerce.ecommerce.model.dto.CategoryFilterDTO;
 import com.example.ecommerce.ecommerce.model.entity.Category;
+import com.example.ecommerce.ecommerce.model.enums.SortDirection;
 import com.example.ecommerce.ecommerce.model.vto.CategoriesVTO;
 import com.example.ecommerce.ecommerce.model.vto.CategoryVTO;
 import lombok.AllArgsConstructor;
@@ -12,14 +15,17 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+import static com.example.ecommerce.ecommerce.lib.error.Error.CATEGORY_NOT_FOUND;
+
 @Service
 @AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final GeneralMapper mapper;
     @Override
-    public CategoriesVTO getAllCategories() {
-        return mapper.toCategoriesVTO(0,categoryRepository.getCategories());
+    public CategoriesVTO getAllCategories(Integer offset, Integer limit, String searchTxt,SortDirection sortDirection) {
+        CategoryFilterDTO filter= CategoryFilterDTO.builder().searchTxt(searchTxt).sortDirection(sortDirection).build();
+        return mapper.toCategoriesVTO(0,categoryRepository.getCategories(filter,offset,limit));
     }
 
     @Override
@@ -32,12 +38,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryVTO getCategoryById(Integer id) {
-        return mapper.toCategoryVTO(categoryRepository.getCategoryById(id).orElseThrow());
+        return mapper.toCategoryVTO(categoryRepository.getCategoryById(id).orElseThrow(()->new AppException(CATEGORY_NOT_FOUND)));
     }
 
     @Override
     public void deleteCategory(Integer id) {
-        Category category=categoryRepository.getCategoryById(id).orElseThrow();
+        Category category=categoryRepository.getCategoryById(id).orElseThrow(()->new AppException(CATEGORY_NOT_FOUND));
         categoryRepository.deletebyId(category);
     }
 }

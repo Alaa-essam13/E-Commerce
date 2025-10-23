@@ -4,6 +4,8 @@ import com.example.ecommerce.ecommerce.api.controller.ProductController;
 import com.example.ecommerce.ecommerce.api.service.ProductService;
 import com.example.ecommerce.ecommerce.model.dto.ProductCreateRequestDTO;
 import com.example.ecommerce.ecommerce.model.dto.ProductUpdateRequestDTO;
+import com.example.ecommerce.ecommerce.model.enums.ProductSortBy;
+import com.example.ecommerce.ecommerce.model.enums.SortDirection;
 import com.example.ecommerce.ecommerce.model.vto.PagedProductResponseVTO;
 import com.example.ecommerce.ecommerce.model.vto.ProductVTO;
 import jakarta.validation.Valid;
@@ -22,8 +24,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class ProductControllerImpl implements ProductController {
     private final ProductService productService;
     @Override
-    public ResponseEntity<PagedProductResponseVTO> getProducts() {
-        return ResponseEntity.ok(productService.getProducts());
+    public ResponseEntity<PagedProductResponseVTO> getProducts(Integer offset,Integer limit,String searchTxt, SortDirection direction, ProductSortBy sortedBy, Double minPrice, Double maxPrice, Integer categoryId) {
+        return ResponseEntity.ok(productService.getProducts(offset,limit,searchTxt,direction,sortedBy,minPrice,maxPrice,categoryId));
     }
 
     @Override
