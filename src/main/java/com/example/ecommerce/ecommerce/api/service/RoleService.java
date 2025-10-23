@@ -10,7 +10,9 @@ public interface RoleService {
 
     void createRole(RoleDTO roleDTO);
 
-    void updateRole(Long id, RoleUpdateDTO roleUpdateDTO);
+    void updateRole(Integer id, RoleUpdateDTO roleUpdateDTO);
 
-    void deleteRole(Long id);
+    void deleteRole(Integer id);
+
+    void assignScopeToRole(Integer roleId, Integer scopeId);
 }

@@ -19,9 +19,9 @@ public class RoleScope {
 
     @ManyToOne
     @JoinColumn(name = "role_id")
-    private Role roleId;
+    private Role role;
 
     @ManyToOne
     @JoinColumn(name = "scope_id")
-    private Scope scopeId;
+    private Scope scope;
 }

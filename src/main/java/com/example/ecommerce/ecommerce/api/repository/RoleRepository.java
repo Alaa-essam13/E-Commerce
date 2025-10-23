@@ -10,4 +10,6 @@ public interface RoleRepository {
     Optional<Role> findById(Integer id);
     void updateRole(Role role);
     void deleteRole(Role role);
+
+    void createRole(Role role);
 }

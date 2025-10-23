@@ -19,9 +19,12 @@ public interface RoleController {
     ResponseEntity<Void> createRole(@Valid @RequestBody RoleDTO roleDTO);
 
     @PostMapping(path = "/{id}",produces = {"application/json"})
-    ResponseEntity<Void> updateRole(@PathVariable("id") Long id, @Valid @RequestBody RoleUpdateDTO  roleUpdateDTO);
+    ResponseEntity<Void> updateRole(@PathVariable("id") Integer id, @Valid @RequestBody RoleUpdateDTO  roleUpdateDTO);
 
     @DeleteMapping(path = "/{id}",produces = {"application/json"})
-    ResponseEntity<Void> deleteRole(@PathVariable("id") Long id);
+    ResponseEntity<Void> deleteRole(@PathVariable("id") Integer id);
+
+    @PostMapping(path = "/{roleId}/assign/scope/{scopeId}",produces = {"application/json"})
+    ResponseEntity<Void> assignScopeToRole(@PathVariable("roleId") Integer roleId,@PathVariable("scopeId") Integer scopeId);
 
 }

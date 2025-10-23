@@ -29,14 +29,20 @@ public class RoleControllerImpl implements RoleController {
     }
 
     @Override
-    public ResponseEntity<Void> updateRole(Long id, RoleUpdateDTO roleUpdateDTO) {
+    public ResponseEntity<Void> updateRole(Integer id, RoleUpdateDTO roleUpdateDTO) {
         roleService.updateRole(id, roleUpdateDTO);
         return ResponseEntity.status(NO_CONTENT).build();
     }
 
     @Override
-    public ResponseEntity<Void> deleteRole(Long id) {
+    public ResponseEntity<Void> deleteRole(Integer id) {
         roleService.deleteRole(id);
+        return ResponseEntity.status(NO_CONTENT).build();
+    }
+
+    @Override
+    public ResponseEntity<Void> assignScopeToRole(Integer roleId, Integer scopeId) {
+        roleService.assignScopeToRole(roleId,scopeId);
         return ResponseEntity.status(NO_CONTENT).build();
     }
 }

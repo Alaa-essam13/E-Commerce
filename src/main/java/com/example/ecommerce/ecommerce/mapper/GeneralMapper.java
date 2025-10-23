@@ -62,5 +62,12 @@ public interface GeneralMapper {
     List<CartItemVTO> toCartItemsVTO(List<CartItem> cartItems);
 
 
+    RoleVTO toRoleVTO(Role role);
+
+    List<RoleVTO> toRolesVTO(List<Role> roles);
+
+    RoleResultSet toRoleResultSet(List<Role> result, Integer total);
+
+    Role toRole(RoleDTO roleDTO);
 
 }
