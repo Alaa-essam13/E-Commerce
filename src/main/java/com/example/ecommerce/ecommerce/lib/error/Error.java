@@ -15,7 +15,11 @@ public enum Error {
     CART_ITEM_NOT_FOUND("Cart Item not found", HttpStatus.NOT_FOUND),
     INVALID_REQUEST("Invalid request data", HttpStatus.BAD_REQUEST),
     UNAUTHORIZED("You are not authorized", HttpStatus.UNAUTHORIZED),
-    INTERNAL_ERROR("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+    INTERNAL_ERROR("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR),
+    ROLE_NOT_FOUND("role not found", HttpStatus.NOT_FOUND),
+    SCOPE_NOT_FOUND("Scope notfound", HttpStatus.NOT_FOUND),
+
+    ;
 
     private final String message;
     private final HttpStatus status;
